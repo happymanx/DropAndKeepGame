@@ -11,7 +11,7 @@
 
 static const uint32_t projectileCategory     =  0x1 << 0;
 static const uint32_t monsterCategory        =  0x1 << 2;
-static const uint32_t playerCategory        =  0x1 << 1;
+static const uint32_t playerCategory         =  0x1 << 1;
 
 // 1
 @interface MyScene () <SKPhysicsContactDelegate>
@@ -19,6 +19,9 @@ static const uint32_t playerCategory        =  0x1 << 1;
 @property (nonatomic) NSTimeInterval lastSpawnTimeInterval;
 @property (nonatomic) NSTimeInterval lastUpdateTimeInterval;
 @property (nonatomic) int monstersDestroyed;
+@property (nonatomic) int monstersKept;
+@property (nonatomic) int monstersMissed;
+
 @end
 
 static inline CGPoint rwAdd(CGPoint a, CGPoint b) {
@@ -57,7 +60,7 @@ static inline CGPoint rwNormalize(CGPoint a) {
         // 4
         self.player = [SKSpriteNode spriteNodeWithImageNamed:@"player"];
         self.player.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.player.size]; // 1
-        self.player.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+        self.player.position = CGPointMake(self.frame.size.width/2, self.player.size.height/2);
         self.player.physicsBody.dynamic = YES;
         self.player.physicsBody.categoryBitMask = playerCategory;
         self.player.physicsBody.contactTestBitMask = monsterCategory;
@@ -113,9 +116,14 @@ static inline CGPoint rwNormalize(CGPoint a) {
 
     SKAction * actionMoveDone = [SKAction removeFromParent];
     SKAction * loseAction = [SKAction runBlock:^{
-        SKTransition *reveal = [SKTransition flipHorizontalWithDuration:0.5];
-        SKScene * gameOverScene = [[GameOverScene alloc] initWithSize:self.size won:NO];
-        [self.view presentScene:gameOverScene transition: reveal];
+        self.monstersMissed++;
+        NSLog(@"Miss: %i", self.monstersMissed);
+        // 錯過三個就輸了
+        if (self.monstersMissed >= 3) {
+//            SKTransition *reveal = [SKTransition flipHorizontalWithDuration:0.5];
+//            SKScene * gameOverScene = [[GameOverScene alloc] initWithSize:self.size won:NO];
+//            [self.view presentScene:gameOverScene transition: reveal];
+        }
     }];
     [monster runAction:[SKAction sequence:@[actionMove, loseAction, actionMoveDone]]];
  
@@ -190,16 +198,21 @@ static inline CGPoint rwNormalize(CGPoint a) {
 }
 
 - (void)projectile:(SKSpriteNode *)projectile didCollideWithMonster:(SKSpriteNode *)monster {
-    NSLog(@"Hit");
     [projectile removeFromParent];
     [monster removeFromParent];
     self.monstersDestroyed++;
+    NSLog(@"Destory: %i", self.monstersDestroyed);
     if (self.monstersDestroyed > 30) {
         SKTransition *reveal = [SKTransition flipHorizontalWithDuration:0.5];
         SKScene * gameOverScene = [[GameOverScene alloc] initWithSize:self.size won:YES];
         [self.view presentScene:gameOverScene transition: reveal];
     }
 }
+
+- (void)player:(SKSpriteNode *)player didCollideWithMonster:(SKSpriteNode *)monster {
+    [monster removeFromParent];
+}
+
 
 - (void)didBeginContact:(SKPhysicsContact *)contact
 {
@@ -227,9 +240,15 @@ static inline CGPoint rwNormalize(CGPoint a) {
     if ((firstBody.categoryBitMask & playerCategory) != 0 &&
         (secondBody.categoryBitMask & monsterCategory) != 0)
     {
-        SKTransition *reveal = [SKTransition flipHorizontalWithDuration:0.5];
-        SKScene * gameOverScene = [[GameOverScene alloc] initWithSize:self.size won:NO];
-        [self.view presentScene:gameOverScene transition: reveal];
+        self.monstersKept++;
+        NSLog(@"Keep: %i", self.monstersKept);
+        [self player:(SKSpriteNode *) firstBody.node didCollideWithMonster:(SKSpriteNode *) secondBody.node];
+        // 接到十個就贏了
+        if (self.monstersKept > 10) {
+            SKTransition *reveal = [SKTransition flipHorizontalWithDuration:0.5];
+            SKScene * gameOverScene = [[GameOverScene alloc] initWithSize:self.size won:YES];
+            [self.view presentScene:gameOverScene transition: reveal];
+        }
     }
 
 }
