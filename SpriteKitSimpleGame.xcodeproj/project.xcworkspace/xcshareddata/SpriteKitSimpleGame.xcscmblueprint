@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "BA9D7B16559C2B0FA1ECD62C632811524C020CE6",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "8033A6C22477E893BE9FF2D983494DF824EB5FAB" : 0,
+    "BA9D7B16559C2B0FA1ECD62C632811524C020CE6" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "E425B11D-6E1D-4F2B-91CA-18ACDDCD1A1E",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "8033A6C22477E893BE9FF2D983494DF824EB5FAB" : "",
+    "BA9D7B16559C2B0FA1ECD62C632811524C020CE6" : "DropAndKeepGame\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "SpriteKitSimpleGame",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "SpriteKitSimpleGame.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/bitbucket.org\/HappyManx\/fatmeterble.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8033A6C22477E893BE9FF2D983494DF824EB5FAB"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/happymanx\/DropAndKeepGame.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "BA9D7B16559C2B0FA1ECD62C632811524C020CE6"
+    }
+  ]
+}
