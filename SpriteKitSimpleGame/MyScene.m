@@ -61,7 +61,7 @@ static inline CGPoint rwNormalize(CGPoint a) {
         self.player = [SKSpriteNode spriteNodeWithImageNamed:@"player"];
         self.player.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.player.size]; // 1
         self.player.position = CGPointMake(self.frame.size.width/2, self.player.size.height/2);
-        self.player.physicsBody.dynamic = YES;
+        self.player.physicsBody.dynamic = NO;
         self.player.physicsBody.categoryBitMask = playerCategory;
         self.player.physicsBody.contactTestBitMask = monsterCategory;
         self.player.physicsBody.collisionBitMask = 0;
@@ -154,47 +154,51 @@ static inline CGPoint rwNormalize(CGPoint a) {
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
  
-    [self runAction:[SKAction playSoundFileNamed:@"pew-pew-lei.caf" waitForCompletion:NO]];
- 
+//    [self runAction:[SKAction playSoundFileNamed:@"pew-pew-lei.caf" waitForCompletion:NO]];
+// 
     // 1 - Choose one of the touches to work with
     UITouch * touch = [touches anyObject];
     CGPoint location = [touch locationInNode:self];
+// 
+//    // 2 - Set up initial location of projectile
+//    SKSpriteNode * projectile = [SKSpriteNode spriteNodeWithImageNamed:@"projectile"];
+//    projectile.position = self.player.position;
+//    projectile.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:projectile.size.width/2];
+//    projectile.physicsBody.dynamic = YES;
+//    projectile.physicsBody.categoryBitMask = projectileCategory;
+//    projectile.physicsBody.contactTestBitMask = monsterCategory;
+//    projectile.physicsBody.collisionBitMask = 0;
+//    projectile.physicsBody.usesPreciseCollisionDetection = YES;
+//
+//    // 3- Determine offset of location to projectile
+//    CGPoint offset = rwSub(location, projectile.position);
+// 
+//    // 4 - Bail out if you are shooting down or backwards
+////    if (offset.x <= 0) return;
+// 
+//    // 5 - OK to add now - we've double checked position
+//    [self addChild:projectile];
+// 
+//    // 6 - Get the direction of where to shoot
+//    CGPoint direction = rwNormalize(offset);
+// 
+//    // 7 - Make it shoot far enough to be guaranteed off screen
+//    CGPoint shootAmount = rwMult(direction, 1000);
+// 
+//    // 8 - Add the shoot amount to the current position       
+//    CGPoint realDest = rwAdd(shootAmount, projectile.position);
+// 
+//    // 9 - Create the actions
+//    float velocity = 480.0/1.0;
+//    float realMoveDuration = self.size.width / velocity;
+//    SKAction * actionMove = [SKAction moveTo:realDest duration:realMoveDuration];
+//    SKAction * actionMoveDone = [SKAction removeFromParent];
+//    [projectile runAction:[SKAction sequence:@[actionMove, actionMoveDone]]];
  
-    // 2 - Set up initial location of projectile
-    SKSpriteNode * projectile = [SKSpriteNode spriteNodeWithImageNamed:@"projectile"];
-    projectile.position = self.player.position;
-    projectile.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:projectile.size.width/2];
-    projectile.physicsBody.dynamic = YES;
-    projectile.physicsBody.categoryBitMask = projectileCategory;
-    projectile.physicsBody.contactTestBitMask = monsterCategory;
-    projectile.physicsBody.collisionBitMask = 0;
-    projectile.physicsBody.usesPreciseCollisionDetection = YES;
-
-    // 3- Determine offset of location to projectile
-    CGPoint offset = rwSub(location, projectile.position);
- 
-    // 4 - Bail out if you are shooting down or backwards
-//    if (offset.x <= 0) return;
- 
-    // 5 - OK to add now - we've double checked position
-    [self addChild:projectile];
- 
-    // 6 - Get the direction of where to shoot
-    CGPoint direction = rwNormalize(offset);
- 
-    // 7 - Make it shoot far enough to be guaranteed off screen
-    CGPoint shootAmount = rwMult(direction, 1000);
- 
-    // 8 - Add the shoot amount to the current position       
-    CGPoint realDest = rwAdd(shootAmount, projectile.position);
- 
-    // 9 - Create the actions
-    float velocity = 480.0/1.0;
-    float realMoveDuration = self.size.width / velocity;
-    SKAction * actionMove = [SKAction moveTo:realDest duration:realMoveDuration];
-    SKAction * actionMoveDone = [SKAction removeFromParent];
-    [projectile runAction:[SKAction sequence:@[actionMove, actionMoveDone]]];
- 
+    //
+    SKAction *move = [SKAction moveToX:location.x duration:0];
+    
+    [self.player runAction:[SKAction sequence:@[move]]];
 }
 
 - (void)projectile:(SKSpriteNode *)projectile didCollideWithMonster:(SKSpriteNode *)monster {
