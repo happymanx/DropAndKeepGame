@@ -159,12 +159,12 @@
 				35F3DF0317D8011E009EFFF2 /* ViewController.m */,
 				35F3DF0517D8011E009EFFF2 /* MyScene.h */,
 				35F3DF0617D8011E009EFFF2 /* MyScene.m */,
+				35F3DF2E17D803D6009EFFF2 /* GameOverScene.h */,
+				35F3DF2F17D803D6009EFFF2 /* GameOverScene.m */,
 				35F3DF0817D8011E009EFFF2 /* Spaceship.png */,
 				35F3DF0A17D8011E009EFFF2 /* Images.xcassets */,
 				96FA1CDF1D3495AB00D88EFD /* Resource */,
 				35F3DEF417D8011E009EFFF2 /* Supporting Files */,
-				35F3DF2E17D803D6009EFFF2 /* GameOverScene.h */,
-				35F3DF2F17D803D6009EFFF2 /* GameOverScene.m */,
 			);
 			path = SpriteKitSimpleGame;
 			sourceTree = "<group>";

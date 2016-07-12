@@ -17,11 +17,21 @@
 
 @implementation ViewController
 
++ (instancetype)sharedInstance
+{
+    static ViewController *sharedInstance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[self alloc] init];
+    });
+    return sharedInstance;
+}
+
 - (void)viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
     NSError *error;
-    NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"background-music-aac" withExtension:@"caf"];
+    NSURL *backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"background-music-aac" withExtension:@"caf"];
     self.backgroundMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:backgroundMusicURL error:&error];
     self.backgroundMusicPlayer.numberOfLoops = -1;
     [self.backgroundMusicPlayer prepareToPlay];
@@ -30,15 +40,19 @@
     // Configure the view.
     SKView * skView = (SKView *)self.view;
     if (!skView.scene) {
-      skView.showsFPS = YES;
-      skView.showsNodeCount = YES;
+        skView.showsFPS = YES;
+        skView.showsNodeCount = YES;
+//        skView.showsFields = YES;
+//        skView.showsPhysics = YES;
+//        skView.showsDrawCount = YES;
+//        skView.showsQuadCount = YES;
       
       // Create and configure the scene.
-      SKScene * scene = [MyScene sceneWithSize:skView.bounds.size];
-      scene.scaleMode = SKSceneScaleModeAspectFill;
+      self.mainScene = [MyScene sceneWithSize:skView.bounds.size];
+      self.mainScene.scaleMode = SKSceneScaleModeAspectFill;
       
       // Present the scene.
-      [skView presentScene:scene];
+      [skView presentScene:self.mainScene];
     }
 }
 
@@ -54,12 +68,6 @@
     } else {
         return UIInterfaceOrientationMaskAll;
     }
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Release any cached data, images, etc that aren't in use.
 }
 
 @end

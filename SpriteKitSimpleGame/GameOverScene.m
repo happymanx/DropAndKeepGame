@@ -8,12 +8,13 @@
 
 #import "GameOverScene.h"
 #import "MyScene.h"
+#import "ViewController.h"
  
 @implementation GameOverScene
  
 -(id)initWithSize:(CGSize)size won:(BOOL)won {
     if (self = [super initWithSize:size]) {
- 
+        
         // 1
         self.backgroundColor = [SKColor colorWithRed:1.0 green:1.0 blue:0.0 alpha:1.0];
  
@@ -40,8 +41,9 @@
                 [SKAction runBlock:^{
                     // 5
                     SKTransition *reveal = [SKTransition doorsOpenHorizontalWithDuration:0.5];
-                    SKScene * myScene = [[MyScene alloc] initWithSize:self.size];
-                    [self.view presentScene:myScene transition: reveal];
+                    
+                    MyScene *myScene = [[MyScene alloc] initWithSize:self.size];
+                    [self.view presentScene:myScene transition:reveal];
                 }]
             ]]
         ];
@@ -49,5 +51,5 @@
     }
     return self;
 }
- 
+
 @end

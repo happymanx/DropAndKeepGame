@@ -11,4 +11,8 @@
 
 @interface ViewController : UIViewController
 
+@property (nonatomic, retain) SKScene *mainScene;
+
++ (instancetype)sharedInstance;
+
 @end

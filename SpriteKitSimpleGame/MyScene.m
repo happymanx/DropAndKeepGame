@@ -13,7 +13,6 @@ static const uint32_t projectileCategory     =  0x1 << 0;
 static const uint32_t monsterCategory        =  0x1 << 2;
 static const uint32_t playerCategory         =  0x1 << 1;
 
-// 1
 @interface MyScene () <SKPhysicsContactDelegate>
 @property (nonatomic) SKSpriteNode * player;
 @property (nonatomic) NSTimeInterval lastSpawnTimeInterval;
@@ -22,6 +21,8 @@ static const uint32_t playerCategory         =  0x1 << 1;
 @property (nonatomic) NSInteger monstersKept;
 @property (nonatomic) NSInteger monstersMissed;
 @property (nonatomic) NSInteger monstersCount;
+@property (nonatomic) NSTimer *timer;
+@property (nonatomic) NSInteger second;
 
 @end
 
@@ -52,13 +53,10 @@ static inline CGPoint rwNormalize(CGPoint a) {
 -(id)initWithSize:(CGSize)size {    
     if (self = [super initWithSize:size]) {
  
-        // 2
         NSLog(@"Size: %@", NSStringFromCGSize(size));
- 
-        // 3
+
         self.backgroundColor = [SKColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
- 
-        // 4
+
         self.player = [SKSpriteNode spriteNodeWithImageNamed:@"Pacman"];
         self.player.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.player.size]; // 1
         self.player.position = CGPointMake(self.frame.size.width/2, self.player.size.height/2);
@@ -70,7 +68,8 @@ static inline CGPoint rwNormalize(CGPoint a) {
       
         self.physicsWorld.gravity = CGVectorMake(0,0);
         self.physicsWorld.contactDelegate = self;
- 
+
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateTime:) userInfo:nil repeats:YES];
     }
     return self;
 }
@@ -122,25 +121,32 @@ static inline CGPoint rwNormalize(CGPoint a) {
     [self addChild:monster];
  
     // Determine speed of the monster
-    int minDuration = 2.0;
-    int maxDuration = 4.0;
-    int rangeDuration = maxDuration - minDuration;
-    int actualDuration = (arc4random() % rangeDuration) + minDuration;
+//    int minDuration = 2.0;
+//    int maxDuration = 4.0;
+//    int rangeDuration = maxDuration - minDuration;
+//    int actualDuration = (arc4random() % rangeDuration) + minDuration;
+    
+    NSInteger actualDuration = 10;
+    actualDuration = actualDuration - (self.second / 10);
+    if (actualDuration <= 0) {
+        actualDuration = 1;
+    }
  
     // Create the actions
 //    SKAction * actionMove = [SKAction moveTo:CGPointMake(-monster.size.width/2, actualY) duration:actualDuration];
     //
-    SKAction * actionMove = [SKAction moveTo:CGPointMake(actualX, - monster.size.height/2) duration:actualDuration];
+    SKAction *actionMove = [SKAction moveTo:CGPointMake(actualX, - monster.size.height/2) duration:actualDuration];
 
-    SKAction * actionMoveDone = [SKAction removeFromParent];
-    SKAction * loseAction = [SKAction runBlock:^{
+    SKAction *actionMoveDone = [SKAction removeFromParent];
+    SKAction *loseAction = [SKAction runBlock:^{
         self.monstersMissed++;
-        NSLog(@"Miss: %i", self.monstersMissed);
+        NSLog(@"Miss: %li", (long)self.monstersMissed);
         // 錯過三個就輸了
         if (self.monstersMissed >= 3) {
-            SKTransition *reveal = [SKTransition flipHorizontalWithDuration:0.5];
-            SKScene * gameOverScene = [[GameOverScene alloc] initWithSize:self.size won:NO];
-            [self.view presentScene:gameOverScene transition: reveal];
+//            SKTransition *reveal = [SKTransition flipHorizontalWithDuration:0.5];
+//            SKScene * gameOverScene = [[GameOverScene alloc] initWithSize:self.size won:NO];
+//            [self.view presentScene:gameOverScene transition: reveal];
+//            [self.timer invalidate];
         }
     }];
     [monster runAction:[SKAction sequence:@[actionMove, loseAction, actionMoveDone]]];
@@ -214,7 +220,7 @@ static inline CGPoint rwNormalize(CGPoint a) {
 //    [projectile runAction:[SKAction sequence:@[actionMove, actionMoveDone]]];
  
     //
-    SKAction *move = [SKAction moveToX:location.x duration:0];
+    SKAction *move = [SKAction moveToX:location.x duration:0.1];
     
     [self.player runAction:[SKAction sequence:@[move]]];
 }
@@ -223,12 +229,13 @@ static inline CGPoint rwNormalize(CGPoint a) {
     [projectile removeFromParent];
     [monster removeFromParent];
     self.monstersDestroyed++;
-    NSLog(@"Destory: %i", self.monstersDestroyed);
+    NSLog(@"Destory: %li", (long)self.monstersDestroyed);
     if (self.monstersDestroyed > 30) {
         SKTransition *reveal = [SKTransition flipHorizontalWithDuration:0.5];
         SKScene * gameOverScene = [[GameOverScene alloc] initWithSize:self.size won:YES];
         [self.view presentScene:gameOverScene transition: reveal];
-    }
+        [self.timer invalidate];
+        }
 }
 
 - (void)player:(SKSpriteNode *)player didCollideWithMonster:(SKSpriteNode *)monster {
@@ -238,7 +245,6 @@ static inline CGPoint rwNormalize(CGPoint a) {
 
 - (void)didBeginContact:(SKPhysicsContact *)contact
 {
-    // 1
     SKPhysicsBody *firstBody, *secondBody;
  
     if (contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask)
@@ -251,28 +257,35 @@ static inline CGPoint rwNormalize(CGPoint a) {
         firstBody = contact.bodyB;
         secondBody = contact.bodyA;
     }
- 
-    // 2
+
     if ((firstBody.categoryBitMask & projectileCategory) != 0 &&
         (secondBody.categoryBitMask & monsterCategory) != 0)
     {
         [self projectile:(SKSpriteNode *) firstBody.node didCollideWithMonster:(SKSpriteNode *) secondBody.node];
     }
     
+    // 小精靈與鬼相撞
     if ((firstBody.categoryBitMask & playerCategory) != 0 &&
         (secondBody.categoryBitMask & monsterCategory) != 0)
     {
         self.monstersKept++;
-        NSLog(@"Keep: %i", self.monstersKept);
+        NSLog(@"Keep: %li", (long)self.monstersKept);
         [self player:(SKSpriteNode *) firstBody.node didCollideWithMonster:(SKSpriteNode *) secondBody.node];
+        [self runAction:[SKAction playSoundFileNamed:@"pew-pew-lei.caf" waitForCompletion:NO]];
         // 接到十個就贏了
         if (self.monstersKept > 10) {
             SKTransition *reveal = [SKTransition flipHorizontalWithDuration:0.5];
-            SKScene * gameOverScene = [[GameOverScene alloc] initWithSize:self.size won:YES];
+            SKScene *gameOverScene = [[GameOverScene alloc] initWithSize:self.size won:YES];
             [self.view presentScene:gameOverScene transition: reveal];
+            [self.timer invalidate];
         }
     }
+}
 
+-(void)updateTime:(NSTimer *)timer
+{
+    self.second++;
+    NSLog(@"second: %li", (long)self.second);
 }
 
 @end
