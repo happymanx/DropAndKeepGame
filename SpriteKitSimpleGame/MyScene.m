@@ -55,7 +55,13 @@ static inline CGPoint rwNormalize(CGPoint a) {
  
         NSLog(@"Size: %@", NSStringFromCGSize(size));
 
-        self.backgroundColor = [SKColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+//        self.backgroundColor = [SKColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+        
+        SKSpriteNode *background = [SKSpriteNode spriteNodeWithImageNamed:@"background.jpg"];
+        background.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+        background.name = @"background";
+        
+        [self addChild:background];
 
         self.player = [SKSpriteNode spriteNodeWithImageNamed:@"Pacman"];
         self.player.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.player.size]; // 1
