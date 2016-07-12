@@ -18,9 +18,10 @@ static const uint32_t playerCategory         =  0x1 << 1;
 @property (nonatomic) SKSpriteNode * player;
 @property (nonatomic) NSTimeInterval lastSpawnTimeInterval;
 @property (nonatomic) NSTimeInterval lastUpdateTimeInterval;
-@property (nonatomic) int monstersDestroyed;
-@property (nonatomic) int monstersKept;
-@property (nonatomic) int monstersMissed;
+@property (nonatomic) NSInteger monstersDestroyed;
+@property (nonatomic) NSInteger monstersKept;
+@property (nonatomic) NSInteger monstersMissed;
+@property (nonatomic) NSInteger monstersCount;
 
 @end
 
@@ -58,7 +59,7 @@ static inline CGPoint rwNormalize(CGPoint a) {
         self.backgroundColor = [SKColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
  
         // 4
-        self.player = [SKSpriteNode spriteNodeWithImageNamed:@"player"];
+        self.player = [SKSpriteNode spriteNodeWithImageNamed:@"Pacman"];
         self.player.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.player.size]; // 1
         self.player.position = CGPointMake(self.frame.size.width/2, self.player.size.height/2);
         self.player.physicsBody.dynamic = NO;
@@ -76,8 +77,25 @@ static inline CGPoint rwNormalize(CGPoint a) {
 
 - (void)addMonster {
  
+    self.monstersCount++;
     // Create sprite
-    SKSpriteNode * monster = [SKSpriteNode spriteNodeWithImageNamed:@"monster"];
+    SKSpriteNode *monster;
+    switch (self.monstersCount%4) {
+        case 0:
+            monster = [SKSpriteNode spriteNodeWithImageNamed:@"Pacman1"];
+            break;
+        case 1:
+            monster = [SKSpriteNode spriteNodeWithImageNamed:@"Pacman2"];
+            break;
+        case 2:
+            monster = [SKSpriteNode spriteNodeWithImageNamed:@"Pacman3"];
+            break;
+        case 3:
+            monster = [SKSpriteNode spriteNodeWithImageNamed:@"Pacman4"];
+            break;
+        default:
+            break;
+    }
     monster.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:monster.size]; // 1
     monster.physicsBody.dynamic = YES; // 2
     monster.physicsBody.categoryBitMask = monsterCategory; // 3
@@ -120,9 +138,9 @@ static inline CGPoint rwNormalize(CGPoint a) {
         NSLog(@"Miss: %i", self.monstersMissed);
         // 錯過三個就輸了
         if (self.monstersMissed >= 3) {
-//            SKTransition *reveal = [SKTransition flipHorizontalWithDuration:0.5];
-//            SKScene * gameOverScene = [[GameOverScene alloc] initWithSize:self.size won:NO];
-//            [self.view presentScene:gameOverScene transition: reveal];
+            SKTransition *reveal = [SKTransition flipHorizontalWithDuration:0.5];
+            SKScene * gameOverScene = [[GameOverScene alloc] initWithSize:self.size won:NO];
+            [self.view presentScene:gameOverScene transition: reveal];
         }
     }];
     [monster runAction:[SKAction sequence:@[actionMove, loseAction, actionMoveDone]]];

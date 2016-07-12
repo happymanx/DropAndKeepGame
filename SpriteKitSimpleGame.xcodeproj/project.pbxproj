@@ -28,6 +28,16 @@
 		35F3DF2C17D80158009EFFF2 /* pew-pew-lei.caf in Resources */ = {isa = PBXBuildFile; fileRef = 35F3DF2917D80158009EFFF2 /* pew-pew-lei.caf */; };
 		35F3DF2D17D80158009EFFF2 /* sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 35F3DF2A17D80158009EFFF2 /* sprites.atlas */; };
 		35F3DF3017D803D6009EFFF2 /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 35F3DF2F17D803D6009EFFF2 /* GameOverScene.m */; };
+		96FA1CEA1D3495AB00D88EFD /* Pacman.png in Resources */ = {isa = PBXBuildFile; fileRef = 96FA1CE01D3495AB00D88EFD /* Pacman.png */; };
+		96FA1CEB1D3495AB00D88EFD /* Pacman1.png in Resources */ = {isa = PBXBuildFile; fileRef = 96FA1CE11D3495AB00D88EFD /* Pacman1.png */; };
+		96FA1CEC1D3495AB00D88EFD /* Pacman1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96FA1CE21D3495AB00D88EFD /* Pacman1@2x.png */; };
+		96FA1CED1D3495AB00D88EFD /* Pacman2.png in Resources */ = {isa = PBXBuildFile; fileRef = 96FA1CE31D3495AB00D88EFD /* Pacman2.png */; };
+		96FA1CEE1D3495AB00D88EFD /* Pacman2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96FA1CE41D3495AB00D88EFD /* Pacman2@2x.png */; };
+		96FA1CEF1D3495AB00D88EFD /* Pacman3.png in Resources */ = {isa = PBXBuildFile; fileRef = 96FA1CE51D3495AB00D88EFD /* Pacman3.png */; };
+		96FA1CF01D3495AB00D88EFD /* Pacman3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96FA1CE61D3495AB00D88EFD /* Pacman3@2x.png */; };
+		96FA1CF11D3495AB00D88EFD /* Pacman4.png in Resources */ = {isa = PBXBuildFile; fileRef = 96FA1CE71D3495AB00D88EFD /* Pacman4.png */; };
+		96FA1CF21D3495AB00D88EFD /* Pacman4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96FA1CE81D3495AB00D88EFD /* Pacman4@2x.png */; };
+		96FA1CF31D3495AB00D88EFD /* Pacman@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96FA1CE91D3495AB00D88EFD /* Pacman@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +79,16 @@
 		35F3DF2A17D80158009EFFF2 /* sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sprites.atlas; sourceTree = "<group>"; };
 		35F3DF2E17D803D6009EFFF2 /* GameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverScene.h; sourceTree = "<group>"; };
 		35F3DF2F17D803D6009EFFF2 /* GameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverScene.m; sourceTree = "<group>"; };
+		96FA1CE01D3495AB00D88EFD /* Pacman.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pacman.png; sourceTree = "<group>"; };
+		96FA1CE11D3495AB00D88EFD /* Pacman1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pacman1.png; sourceTree = "<group>"; };
+		96FA1CE21D3495AB00D88EFD /* Pacman1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pacman1@2x.png"; sourceTree = "<group>"; };
+		96FA1CE31D3495AB00D88EFD /* Pacman2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pacman2.png; sourceTree = "<group>"; };
+		96FA1CE41D3495AB00D88EFD /* Pacman2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pacman2@2x.png"; sourceTree = "<group>"; };
+		96FA1CE51D3495AB00D88EFD /* Pacman3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pacman3.png; sourceTree = "<group>"; };
+		96FA1CE61D3495AB00D88EFD /* Pacman3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pacman3@2x.png"; sourceTree = "<group>"; };
+		96FA1CE71D3495AB00D88EFD /* Pacman4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pacman4.png; sourceTree = "<group>"; };
+		96FA1CE81D3495AB00D88EFD /* Pacman4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pacman4@2x.png"; sourceTree = "<group>"; };
+		96FA1CE91D3495AB00D88EFD /* Pacman@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pacman@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +161,7 @@
 				35F3DF0617D8011E009EFFF2 /* MyScene.m */,
 				35F3DF0817D8011E009EFFF2 /* Spaceship.png */,
 				35F3DF0A17D8011E009EFFF2 /* Images.xcassets */,
+				96FA1CDF1D3495AB00D88EFD /* Resource */,
 				35F3DEF417D8011E009EFFF2 /* Supporting Files */,
 				35F3DF2E17D803D6009EFFF2 /* GameOverScene.h */,
 				35F3DF2F17D803D6009EFFF2 /* GameOverScene.m */,
@@ -184,6 +205,23 @@
 				35F3DF2917D80158009EFFF2 /* pew-pew-lei.caf */,
 			);
 			path = Sounds;
+			sourceTree = "<group>";
+		};
+		96FA1CDF1D3495AB00D88EFD /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				96FA1CE01D3495AB00D88EFD /* Pacman.png */,
+				96FA1CE11D3495AB00D88EFD /* Pacman1.png */,
+				96FA1CE21D3495AB00D88EFD /* Pacman1@2x.png */,
+				96FA1CE31D3495AB00D88EFD /* Pacman2.png */,
+				96FA1CE41D3495AB00D88EFD /* Pacman2@2x.png */,
+				96FA1CE51D3495AB00D88EFD /* Pacman3.png */,
+				96FA1CE61D3495AB00D88EFD /* Pacman3@2x.png */,
+				96FA1CE71D3495AB00D88EFD /* Pacman4.png */,
+				96FA1CE81D3495AB00D88EFD /* Pacman4@2x.png */,
+				96FA1CE91D3495AB00D88EFD /* Pacman@2x.png */,
+			);
+			path = Resource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -264,11 +302,21 @@
 			files = (
 				35F3DF2D17D80158009EFFF2 /* sprites.atlas in Resources */,
 				35F3DF2B17D80158009EFFF2 /* background-music-aac.caf in Resources */,
+				96FA1CEF1D3495AB00D88EFD /* Pacman3.png in Resources */,
+				96FA1CEC1D3495AB00D88EFD /* Pacman1@2x.png in Resources */,
+				96FA1CF31D3495AB00D88EFD /* Pacman@2x.png in Resources */,
 				35F3DEF817D8011E009EFFF2 /* InfoPlist.strings in Resources */,
 				35F3DF0B17D8011E009EFFF2 /* Images.xcassets in Resources */,
+				96FA1CEE1D3495AB00D88EFD /* Pacman2@2x.png in Resources */,
+				96FA1CF11D3495AB00D88EFD /* Pacman4.png in Resources */,
+				96FA1CEB1D3495AB00D88EFD /* Pacman1.png in Resources */,
+				96FA1CF01D3495AB00D88EFD /* Pacman3@2x.png in Resources */,
 				35F3DF0917D8011E009EFFF2 /* Spaceship.png in Resources */,
+				96FA1CEA1D3495AB00D88EFD /* Pacman.png in Resources */,
 				35F3DF0117D8011E009EFFF2 /* Main.storyboard in Resources */,
 				35F3DF2C17D80158009EFFF2 /* pew-pew-lei.caf in Resources */,
+				96FA1CED1D3495AB00D88EFD /* Pacman2.png in Resources */,
+				96FA1CF21D3495AB00D88EFD /* Pacman4@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -496,6 +544,7 @@
 				35F3DF2317D8011E009EFFF2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		35F3DF2417D8011E009EFFF2 /* Build configuration list for PBXNativeTarget "SpriteKitSimpleGameTests" */ = {
 			isa = XCConfigurationList;
@@ -504,6 +553,7 @@
 				35F3DF2617D8011E009EFFF2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
