@@ -40,6 +40,14 @@
 		96FA1CF31D3495AB00D88EFD /* Pacman@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96FA1CE91D3495AB00D88EFD /* Pacman@2x.png */; };
 		96FA1CF81D34C72200D88EFD /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 96FA1CF61D34C72200D88EFD /* background.jpg */; };
 		96FA1CF91D34C72200D88EFD /* background@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 96FA1CF71D34C72200D88EFD /* background@2x.jpg */; };
+		96FA1CFC1D34D06300D88EFD /* board.png in Resources */ = {isa = PBXBuildFile; fileRef = 96FA1CFA1D34D06300D88EFD /* board.png */; };
+		96FA1CFD1D34D06300D88EFD /* board@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96FA1CFB1D34D06300D88EFD /* board@2x.png */; };
+		96FA1D001D34D10400D88EFD /* button.png in Resources */ = {isa = PBXBuildFile; fileRef = 96FA1CFE1D34D10400D88EFD /* button.png */; };
+		96FA1D011D34D10400D88EFD /* button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96FA1CFF1D34D10400D88EFD /* button@2x.png */; };
+		96FA1D061D34DC4C00D88EFD /* heart_empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 96FA1D021D34DC4C00D88EFD /* heart_empty.png */; };
+		96FA1D071D34DC4C00D88EFD /* heart_empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96FA1D031D34DC4C00D88EFD /* heart_empty@2x.png */; };
+		96FA1D081D34DC4C00D88EFD /* heart_full.png in Resources */ = {isa = PBXBuildFile; fileRef = 96FA1D041D34DC4C00D88EFD /* heart_full.png */; };
+		96FA1D091D34DC4C00D88EFD /* heart_full@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96FA1D051D34DC4C00D88EFD /* heart_full@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +101,14 @@
 		96FA1CE91D3495AB00D88EFD /* Pacman@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pacman@2x.png"; sourceTree = "<group>"; };
 		96FA1CF61D34C72200D88EFD /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
 		96FA1CF71D34C72200D88EFD /* background@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background@2x.jpg"; sourceTree = "<group>"; };
+		96FA1CFA1D34D06300D88EFD /* board.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = board.png; sourceTree = "<group>"; };
+		96FA1CFB1D34D06300D88EFD /* board@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "board@2x.png"; sourceTree = "<group>"; };
+		96FA1CFE1D34D10400D88EFD /* button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button.png; sourceTree = "<group>"; };
+		96FA1CFF1D34D10400D88EFD /* button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button@2x.png"; sourceTree = "<group>"; };
+		96FA1D021D34DC4C00D88EFD /* heart_empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heart_empty.png; sourceTree = "<group>"; };
+		96FA1D031D34DC4C00D88EFD /* heart_empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "heart_empty@2x.png"; sourceTree = "<group>"; };
+		96FA1D041D34DC4C00D88EFD /* heart_full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heart_full.png; sourceTree = "<group>"; };
+		96FA1D051D34DC4C00D88EFD /* heart_full@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "heart_full@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,6 +230,14 @@
 		96FA1CDF1D3495AB00D88EFD /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				96FA1D021D34DC4C00D88EFD /* heart_empty.png */,
+				96FA1D031D34DC4C00D88EFD /* heart_empty@2x.png */,
+				96FA1D041D34DC4C00D88EFD /* heart_full.png */,
+				96FA1D051D34DC4C00D88EFD /* heart_full@2x.png */,
+				96FA1CFA1D34D06300D88EFD /* board.png */,
+				96FA1CFB1D34D06300D88EFD /* board@2x.png */,
+				96FA1CFE1D34D10400D88EFD /* button.png */,
+				96FA1CFF1D34D10400D88EFD /* button@2x.png */,
 				96FA1CF61D34C72200D88EFD /* background.jpg */,
 				96FA1CF71D34C72200D88EFD /* background@2x.jpg */,
 				96FA1CE01D3495AB00D88EFD /* Pacman.png */,
@@ -313,15 +337,23 @@
 				96FA1CF91D34C72200D88EFD /* background@2x.jpg in Resources */,
 				96FA1CF31D3495AB00D88EFD /* Pacman@2x.png in Resources */,
 				35F3DEF817D8011E009EFFF2 /* InfoPlist.strings in Resources */,
+				96FA1D011D34D10400D88EFD /* button@2x.png in Resources */,
 				35F3DF0B17D8011E009EFFF2 /* Images.xcassets in Resources */,
+				96FA1D081D34DC4C00D88EFD /* heart_full.png in Resources */,
+				96FA1CFC1D34D06300D88EFD /* board.png in Resources */,
+				96FA1CFD1D34D06300D88EFD /* board@2x.png in Resources */,
 				96FA1CEE1D3495AB00D88EFD /* Pacman2@2x.png in Resources */,
+				96FA1D001D34D10400D88EFD /* button.png in Resources */,
 				96FA1CF11D3495AB00D88EFD /* Pacman4.png in Resources */,
 				96FA1CF81D34C72200D88EFD /* background.jpg in Resources */,
 				96FA1CEB1D3495AB00D88EFD /* Pacman1.png in Resources */,
 				96FA1CF01D3495AB00D88EFD /* Pacman3@2x.png in Resources */,
+				96FA1D091D34DC4C00D88EFD /* heart_full@2x.png in Resources */,
 				35F3DF0917D8011E009EFFF2 /* Spaceship.png in Resources */,
 				96FA1CEA1D3495AB00D88EFD /* Pacman.png in Resources */,
 				35F3DF0117D8011E009EFFF2 /* Main.storyboard in Resources */,
+				96FA1D061D34DC4C00D88EFD /* heart_empty.png in Resources */,
+				96FA1D071D34DC4C00D88EFD /* heart_empty@2x.png in Resources */,
 				35F3DF2C17D80158009EFFF2 /* pew-pew-lei.caf in Resources */,
 				96FA1CED1D3495AB00D88EFD /* Pacman2.png in Resources */,
 				96FA1CF21D3495AB00D88EFD /* Pacman4@2x.png in Resources */,

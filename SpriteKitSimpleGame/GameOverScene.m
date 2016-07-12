@@ -41,7 +41,6 @@
                 [SKAction runBlock:^{
                     // 5
                     SKTransition *reveal = [SKTransition doorsOpenHorizontalWithDuration:0.5];
-                    
                     MyScene *myScene = [[MyScene alloc] initWithSize:self.size];
                     [self.view presentScene:myScene transition:reveal];
                 }]
