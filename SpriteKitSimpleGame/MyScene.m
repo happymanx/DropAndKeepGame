@@ -28,6 +28,9 @@ static const uint32_t playerCategory         =  0x1 << 1;
 @property (nonatomic) SKSpriteNode *heart1Node;
 @property (nonatomic) SKSpriteNode *heart2Node;
 @property (nonatomic) SKSpriteNode *heart3Node;
+@property (nonatomic) SKSpriteNode *animal;
+@property (nonatomic) SKSpriteNode *panel;
+@property (nonatomic) SKSpriteNode *bar;
 
 @end
 
@@ -62,21 +65,33 @@ static inline CGPoint rwNormalize(CGPoint a) {
 
 //        self.backgroundColor = [SKColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
         // 生成背景
-        SKSpriteNode *background = [SKSpriteNode spriteNodeWithImageNamed:@"background.jpg"];
+        SKSpriteNode *background = [SKSpriteNode spriteNodeWithImageNamed:@"bg_game01.jpg"];
+        background.size = self.frame.size;
         background.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
-        background.name = @"background";
+        background.name = @"bg_game01";
         [self addChild:background];
         
         // 生成木材
         [self addChild:[self boardNode]];
         // 生成按鈕
         [self addChild:[self buttonNode]];
+        
+        // 生成動物
+        self.animal = [self animalNode];
+        [self addChild:self.animal];
+        // 生成面板
+        self.panel = [self panelNode];
+        [self addChild:self.panel];
+        // 生成木條
+        self.bar = [self barNode];
+        [self addChild:self.bar];
+
         // 生成標題名稱
-        [self addChild:[self difficultyNameNode]];
+//        [self addChild:[self difficultyNameNode]];
         [self addChild:[self scoreNameNode]];
         // 生成標題數字
-        self.difficultyNumberLabel = [self difficultyNumberNode];
-        [self addChild:self.difficultyNumberLabel];
+//        self.difficultyNumberLabel = [self difficultyNumberNode];
+//        [self addChild:self.difficultyNumberLabel];
         self.scoreNumberLabel = [self scoreNumberNode];
         [self addChild:self.scoreNumberLabel];
         
@@ -89,13 +104,14 @@ static inline CGPoint rwNormalize(CGPoint a) {
         [self addChild:self.heart3Node];
 
         // 生成玩家
-        self.player = [SKSpriteNode spriteNodeWithImageNamed:@"Pacman"];
-        self.player.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.player.size]; // 1
+        self.player = [SKSpriteNode spriteNodeWithImageNamed:@"image_trash_can.png"];
+        self.player.size = CGSizeMake(120, 60);
+        self.player.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.player.size];
         self.player.position = CGPointMake(self.frame.size.width/2, self.player.size.height/2);
         self.player.physicsBody.dynamic = NO;
         self.player.physicsBody.categoryBitMask = playerCategory;
         self.player.physicsBody.contactTestBitMask = monsterCategory;
-        self.player.physicsBody.collisionBitMask = 0;
+        self.player.physicsBody.collisionBitMask = monsterCategory;
         [self addChild:self.player];
       
         self.physicsWorld.gravity = CGVectorMake(0,0);
@@ -112,27 +128,34 @@ static inline CGPoint rwNormalize(CGPoint a) {
     self.monstersCount++;
     // Create sprite
     SKSpriteNode *monster;
-    switch (self.monstersCount%4) {
+    switch (self.monstersCount%6) {
         case 0:
-            monster = [SKSpriteNode spriteNodeWithImageNamed:@"Pacman1"];
+            monster = [SKSpriteNode spriteNodeWithImageNamed:@"image_trash01"];
             break;
         case 1:
-            monster = [SKSpriteNode spriteNodeWithImageNamed:@"Pacman2"];
+            monster = [SKSpriteNode spriteNodeWithImageNamed:@"image_trash02"];
             break;
         case 2:
-            monster = [SKSpriteNode spriteNodeWithImageNamed:@"Pacman3"];
+            monster = [SKSpriteNode spriteNodeWithImageNamed:@"image_trash03"];
             break;
         case 3:
-            monster = [SKSpriteNode spriteNodeWithImageNamed:@"Pacman4"];
+            monster = [SKSpriteNode spriteNodeWithImageNamed:@"image_trash04"];
+            break;
+        case 4:
+            monster = [SKSpriteNode spriteNodeWithImageNamed:@"image_trash05"];
+            break;
+        case 5:
+            monster = [SKSpriteNode spriteNodeWithImageNamed:@"image_trash06"];
             break;
         default:
             break;
     }
+    monster.size = CGSizeMake(60, 60);
     monster.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:monster.size]; // 1
     monster.physicsBody.dynamic = YES; // 2
     monster.physicsBody.categoryBitMask = monsterCategory; // 3
     monster.physicsBody.contactTestBitMask = projectileCategory; // 4
-    monster.physicsBody.collisionBitMask = 0; // 5
+    monster.physicsBody.collisionBitMask = playerCategory; // 5
   
     // Determine where to spawn the monster along the Y axis
 //    int minY = monster.size.height / 2;
@@ -140,7 +163,7 @@ static inline CGPoint rwNormalize(CGPoint a) {
 //    int rangeY = maxY - minY;
 //    int actualY = (arc4random() % rangeY) + minY;
     //
-    int minX = 100;
+    int minX = 124 + monster.size.width / 2;
     int maxX = self.frame.size.width + monster.size.width / 2;
     int rangeX = maxX - minX;
     int actualX = (arc4random() % rangeX) + minX;
@@ -177,13 +200,13 @@ static inline CGPoint rwNormalize(CGPoint a) {
         NSLog(@"Miss: %li", (long)self.monstersMissed);
         // 失去愛心
         if (self.monstersMissed == 1) {
-            self.heart1Node.texture = [SKTexture textureWithImageNamed:@"heart_empty.png"];
+            self.heart1Node.texture = [SKTexture textureWithImageNamed:@"image_heart_off.png"];
         }
         if (self.monstersMissed == 2) {
-            self.heart2Node.texture = [SKTexture textureWithImageNamed:@"heart_empty.png"];
+            self.heart2Node.texture = [SKTexture textureWithImageNamed:@"image_heart_off.png"];
         }
         if (self.monstersMissed == 3) {
-            self.heart3Node.texture = [SKTexture textureWithImageNamed:@"heart_empty.png"];
+            self.heart3Node.texture = [SKTexture textureWithImageNamed:@"image_heart_off.png"];
         }
 
         // 錯過三個就輸了
@@ -194,9 +217,19 @@ static inline CGPoint rwNormalize(CGPoint a) {
             [self.timer invalidate];
         }
 
+        // 動物搖擺
+        SKAction *sequence = [SKAction sequence:@[[SKAction rotateByAngle:degToRad(-5.0f) duration:0.2],
+                                                  [SKAction rotateByAngle:0.0 duration:0.1],
+                                                  [SKAction rotateByAngle:degToRad(5.0f) duration:0.2]]];
+        [self.animal runAction:[SKAction sequence:@[sequence]]];
     }];
+    
     [monster runAction:[SKAction sequence:@[actionMove, loseAction, actionMoveDone]]];
- 
+}
+
+float degToRad(float degree)
+{
+    return degree / 180.0f * M_PI;
 }
 
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)timeSinceLast {
@@ -228,9 +261,11 @@ static inline CGPoint rwNormalize(CGPoint a) {
     CGPoint positionInScene = [touch locationInNode:self];
 //    CGPoint previousPosition = [touch previousLocationInNode:self];
     
-    // 移動小精靈
-    SKAction *move = [SKAction moveToX:positionInScene.x duration:0.1];
-    [self.player runAction:[SKAction sequence:@[move]]];
+    if (positionInScene.x > 124 + self.player.frame.size.width / 2) {
+        // 移動小精靈
+        SKAction *move = [SKAction moveToX:positionInScene.x duration:0.1];
+        [self.player runAction:[SKAction sequence:@[move]]];
+    }
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -277,7 +312,7 @@ static inline CGPoint rwNormalize(CGPoint a) {
 //    [projectile runAction:[SKAction sequence:@[actionMove, actionMoveDone]]];
     // 點擊按鈕
     SKNode *node = [self nodeAtPoint:location];
-    if ([node.name isEqualToString:@"buttonNode"]) {
+    if ([node.name isEqualToString:@"button_pause01"]) {
         NSLog(@"press button");
         // 暫停遊戲
         self.scene.view.paused = !self.scene.view.paused;
@@ -350,18 +385,20 @@ static inline CGPoint rwNormalize(CGPoint a) {
 
 - (SKSpriteNode *)buttonNode
 {
-    SKSpriteNode *buttonNode = [SKSpriteNode spriteNodeWithImageNamed:@"button.png"];
-    buttonNode.position = CGPointMake(50,50);
-    buttonNode.name = @"buttonNode";
+    SKSpriteNode *buttonNode = [SKSpriteNode spriteNodeWithImageNamed:@"button_pause01_on.png"];
+    buttonNode.size = CGSizeMake(64, 64);
+    buttonNode.position = CGPointMake(62,self.frame.size.height-buttonNode.size.height/3*2);
+    buttonNode.name = @"button_pause01";
     buttonNode.zPosition = 0.0;
     return buttonNode;
 }
 
 - (SKSpriteNode *)boardNode
 {
-    SKSpriteNode *boardNode = [SKSpriteNode spriteNodeWithImageNamed:@"board.png"];
+    SKSpriteNode *boardNode = [SKSpriteNode spriteNodeWithImageNamed:@"bg_ui_brown.png"];
+    boardNode.size = CGSizeMake(124, self.frame.size.height);
     boardNode.position = CGPointMake(CGRectGetMaxX(boardNode.frame),CGRectGetMidY(self.frame));
-    boardNode.name = @"boardNode";
+    boardNode.name = @"bg_ui_brown";
     boardNode.zPosition = 0.0;
     return boardNode;
 }
@@ -377,15 +414,14 @@ static inline CGPoint rwNormalize(CGPoint a) {
     return label;
 }
 
-- (SKLabelNode *)scoreNameNode
+- (SKSpriteNode *)scoreNameNode
 {
-    SKLabelNode *label = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
-    label.zPosition = 0.5;
-    label.text = @"分數";
-    label.fontSize = 20;
-    label.fontColor = [SKColor greenColor];
-    label.position = CGPointMake(50, 170);
-    return label;
+    SKSpriteNode *scoreNameNode = [SKSpriteNode spriteNodeWithImageNamed:@"word_score_green.png"];
+    scoreNameNode.size = CGSizeMake(66, 36);
+    scoreNameNode.position = CGPointMake(62,210);
+    scoreNameNode.name = @"word_score_green";
+    scoreNameNode.zPosition = 0.0;
+    return scoreNameNode;
 }
 
 
@@ -406,31 +442,61 @@ static inline CGPoint rwNormalize(CGPoint a) {
     label.zPosition = 0.5;
     label.text = @"0";
     label.fontSize = 20;
-    label.fontColor = [SKColor greenColor];
-    label.position = CGPointMake(50, 140);
+    label.fontColor = [SKColor colorWithRed:0 green:102.0/255 blue:51.0/255 alpha:1];
+    label.position = CGPointMake(62, 170);
     return label;
 }
 
-
 - (SKSpriteNode *)heartNodeWithIndex:(NSUInteger)index
 {
-    SKSpriteNode *boardNode = [SKSpriteNode spriteNodeWithImageNamed:@"heart_full.png"];
-    boardNode.texture = [SKTexture textureWithImageNamed:@"heart_full.png"];
+    SKSpriteNode *heartNode = [SKSpriteNode spriteNodeWithImageNamed:@"image_heart_on.png"];
+    heartNode.size = CGSizeMake(30, 30);
+    heartNode.texture = [SKTexture textureWithImageNamed:@"image_heart_on.png"];
     float x = 0;
     if (index == 1) {
-        x = 20;
+        x = 31;
     }
     if (index == 2) {
-        x = 50;
+        x = 62;
     }
     if (index == 3) {
-        x = 80;
+        x = 93;
     }
     
-    boardNode.position = CGPointMake(x,120);
-    boardNode.name = @"heartNode";
-    boardNode.zPosition = 0.0;
-    return boardNode;
+    heartNode.position = CGPointMake(x,130);
+    heartNode.name = @"heartNode";
+    heartNode.zPosition = 0.0;
+    return heartNode;
+}
+
+- (SKSpriteNode *)animalNode
+{
+    SKSpriteNode *animalNode = [SKSpriteNode spriteNodeWithImageNamed:@"image_animal01.png"];
+    animalNode.size = CGSizeMake(65, 85);
+    animalNode.position = CGPointMake(62,50);
+    animalNode.name = @"image_animal01";
+    animalNode.zPosition = 0.0;
+    return animalNode;
+}
+
+- (SKSpriteNode *)panelNode
+{
+    SKSpriteNode *panelNode = [SKSpriteNode spriteNodeWithImageNamed:@"bg_score_lightbrown.png"];
+    panelNode.size = CGSizeMake(100, 80);
+    panelNode.position = CGPointMake(62,200);
+    panelNode.name = @"bg_score_lightbrown";
+    panelNode.zPosition = 0.0;
+    return panelNode;
+}
+
+- (SKSpriteNode *)barNode
+{
+    SKSpriteNode *barNode = [SKSpriteNode spriteNodeWithImageNamed:@"image_line.png"];
+    barNode.size = CGSizeMake(102, 14);
+    barNode.position = CGPointMake(62,100);
+    barNode.name = @"image_line";
+    barNode.zPosition = 0.0;
+    return barNode;
 }
 
 @end

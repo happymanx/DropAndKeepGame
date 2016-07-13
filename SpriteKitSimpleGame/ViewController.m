@@ -38,7 +38,7 @@
     [self.backgroundMusicPlayer play];
 
     // Configure the view.
-    SKView * skView = (SKView *)self.view;
+    SKView *skView = (SKView *)self.view;
     if (!skView.scene) {
         skView.showsFPS = YES;
         skView.showsNodeCount = YES;
@@ -49,7 +49,7 @@
       
       // Create and configure the scene.
       self.mainScene = [MyScene sceneWithSize:skView.bounds.size];
-      self.mainScene.scaleMode = SKSceneScaleModeAspectFill;
+      self.mainScene.scaleMode = SKSceneScaleModeResizeFill;
       
       // Present the scene.
       [skView presentScene:self.mainScene];
