@@ -7,12 +7,19 @@
 //
 
 #import "AppDelegate.h"
+#import "HTMainViewController.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    HTMainViewController *mainVC = [[HTMainViewController alloc] init];
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:mainVC];
+    nc.navigationBarHidden = YES;
+    
+    self.window.rootViewController = nc;
+    [self.window makeKeyWindow];
+    
     return YES;
 }
 							

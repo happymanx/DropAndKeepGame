@@ -6,26 +6,26 @@
 //  Copyright (c) 2013 Razeware LLC. All rights reserved.
 //
 
-#import "ViewController.h"
-#import "MyScene.h"
+#import "HTSceneViewController.h"
+#import "MainScene.h"
 
 @import AVFoundation;
 
-@interface ViewController ()
+@interface HTSceneViewController ()
 @property (nonatomic) AVAudioPlayer * backgroundMusicPlayer;
 @end
 
-@implementation ViewController
+@implementation HTSceneViewController
 
-+ (instancetype)sharedInstance
-{
-    static ViewController *sharedInstance = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedInstance = [[self alloc] init];
-    });
-    return sharedInstance;
-}
+//+ (instancetype)sharedInstance
+//{
+//    static HTSceneViewController *sharedInstance = nil;
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        sharedInstance = [[self alloc] init];
+//    });
+//    return sharedInstance;
+//}
 
 - (void)viewWillLayoutSubviews
 {
@@ -47,12 +47,13 @@
 //        skView.showsDrawCount = YES;
 //        skView.showsQuadCount = YES;
       
-      // Create and configure the scene.
-      self.mainScene = [MyScene sceneWithSize:skView.bounds.size];
-      self.mainScene.scaleMode = SKSceneScaleModeResizeFill;
+        // Create and configure the scene.
+        self.mainScene = [MainScene sceneWithSize:skView.bounds.size];
+        self.mainScene.mainSceneDelegate = self;
+        self.mainScene.scaleMode = SKSceneScaleModeResizeFill;
       
-      // Present the scene.
-      [skView presentScene:self.mainScene];
+        // Present the scene.
+        [skView presentScene:self.mainScene];
     }
 }
 
@@ -61,7 +62,7 @@
     return YES;
 }
 
-- (NSUInteger)supportedInterfaceOrientations
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         return UIInterfaceOrientationMaskAllButUpsideDown;
@@ -69,5 +70,17 @@
         return UIInterfaceOrientationMaskAll;
     }
 }
+
+-(void)backAction
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - MainSceneDelegate
+-(void)mainSceneDidFinish:(MainScene *)mainScene
+{
+    [self backAction];
+}
+    
 
 @end

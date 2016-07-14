@@ -6,14 +6,14 @@
 //  Copyright (c) 2013 Razeware LLC. All rights reserved.
 //
 
-#import "MyScene.h"
+#import "MainScene.h"
 #import "GameOverScene.h"
 
 static const uint32_t projectileCategory     =  0x1 << 0;
 static const uint32_t monsterCategory        =  0x1 << 2;
 static const uint32_t playerCategory         =  0x1 << 1;
 
-@interface MyScene () <SKPhysicsContactDelegate>
+@interface MainScene () <SKPhysicsContactDelegate>
 @property (nonatomic) SKSpriteNode *player;
 @property (nonatomic) NSTimeInterval lastSpawnTimeInterval;
 @property (nonatomic) NSTimeInterval lastUpdateTimeInterval;
@@ -28,6 +28,7 @@ static const uint32_t playerCategory         =  0x1 << 1;
 @property (nonatomic) SKSpriteNode *heart1Node;
 @property (nonatomic) SKSpriteNode *heart2Node;
 @property (nonatomic) SKSpriteNode *heart3Node;
+@property (nonatomic) SKSpriteNode *button;
 @property (nonatomic) SKSpriteNode *animal;
 @property (nonatomic) SKSpriteNode *panel;
 @property (nonatomic) SKSpriteNode *bar;
@@ -56,7 +57,7 @@ static inline CGPoint rwNormalize(CGPoint a) {
     return CGPointMake(a.x / length, a.y / length);
 }
 
-@implementation MyScene
+@implementation MainScene
  
 -(id)initWithSize:(CGSize)size {    
     if (self = [super initWithSize:size]) {
@@ -74,7 +75,8 @@ static inline CGPoint rwNormalize(CGPoint a) {
         // 生成木材
         [self addChild:[self boardNode]];
         // 生成按鈕
-        [self addChild:[self buttonNode]];
+        self.button = [self buttonNode];
+        [self addChild:self.button];
         
         // 生成動物
         self.animal = [self animalNode];
@@ -315,7 +317,10 @@ float degToRad(float degree)
     if ([node.name isEqualToString:@"button_pause01"]) {
         NSLog(@"press button");
         // 暫停遊戲
-        self.scene.view.paused = !self.scene.view.paused;
+        self.button.texture = [SKTexture textureWithImageNamed:@"button_pause01_off.png"];
+        self.scene.view.paused = YES;
+        UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"提示" message:@"請選擇動作" delegate:self cancelButtonTitle:@"繼續遊戲" otherButtonTitles:@"跳回首頁", nil];
+        [av show];
     }
 }
 
@@ -387,6 +392,7 @@ float degToRad(float degree)
 {
     SKSpriteNode *buttonNode = [SKSpriteNode spriteNodeWithImageNamed:@"button_pause01_on.png"];
     buttonNode.size = CGSizeMake(64, 64);
+    buttonNode.texture = [SKTexture textureWithImageNamed:@"button_pause01_on.png"];
     buttonNode.position = CGPointMake(62,self.frame.size.height-buttonNode.size.height/3*2);
     buttonNode.name = @"button_pause01";
     buttonNode.zPosition = 0.0;
@@ -497,6 +503,19 @@ float degToRad(float degree)
     barNode.name = @"image_line";
     barNode.zPosition = 0.0;
     return barNode;
+}
+
+#pragma mark - UIAlertViewDelegate
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {// 繼續遊戲
+        self.scene.view.paused = NO;
+        self.button.texture = [SKTexture textureWithImageNamed:@"button_pause01_on.png"];
+    }
+    if (buttonIndex == 1) {// 跳回首頁
+        [self.timer invalidate];
+        [self.mainSceneDelegate mainSceneDidFinish:self];
+    }
 }
 
 @end
