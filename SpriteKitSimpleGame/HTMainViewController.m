@@ -7,7 +7,6 @@
 //
 
 #import "HTMainViewController.h"
-#import "HTSceneViewController.h"
 
 @interface HTMainViewController ()
 
@@ -21,8 +20,8 @@
 
 -(IBAction)startButtonClicked:(UIButton *)button
 {
-    HTSceneViewController *vc = [[HTSceneViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
+    self.sceneVC = [[HTSceneViewController alloc] init];
+    [self.navigationController pushViewController:self.sceneVC animated:YES];
 }
 
 @end

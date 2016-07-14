@@ -10,7 +10,7 @@
 #import <SpriteKit/SpriteKit.h>
 #import "MainScene.h"
 
-@interface HTSceneViewController : UIViewController <MainSceneDelegate>
+@interface HTSceneViewController : UIViewController
 
 @property (nonatomic, retain) MainScene *mainScene;
 

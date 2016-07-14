@@ -49,12 +49,18 @@
       
         // Create and configure the scene.
         self.mainScene = [MainScene sceneWithSize:skView.bounds.size];
-        self.mainScene.mainSceneDelegate = self;
         self.mainScene.scaleMode = SKSceneScaleModeResizeFill;
       
         // Present the scene.
         [skView presentScene:self.mainScene];
     }
+}
+
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    [self.backgroundMusicPlayer stop];
 }
 
 - (BOOL)shouldAutorotate
@@ -76,11 +82,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-#pragma mark - MainSceneDelegate
--(void)mainSceneDidFinish:(MainScene *)mainScene
-{
-    [self backAction];
-}
+
     
 
 @end

@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HTSceneViewController.h"
 
 @interface HTMainViewController : UIViewController
+
+@property (strong, nonatomic) HTSceneViewController *sceneVC;
 
 @end

@@ -8,6 +8,7 @@
 
 #import "MainScene.h"
 #import "GameOverScene.h"
+#import "AppDelegate.h"
 
 static const uint32_t projectileCategory     =  0x1 << 0;
 static const uint32_t monsterCategory        =  0x1 << 2;
@@ -213,9 +214,20 @@ static inline CGPoint rwNormalize(CGPoint a) {
 
         // 錯過三個就輸了
         if (self.monstersMissed >= 3) {
+            // 記錄分數
+            NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+            [ud setObject:@(self.monstersKept) forKey:@"HTNowScore"];
+            // 記錄最高分數
+            NSNumber *greatestScore = [ud objectForKey:@"HTGreatestScore"];
+            if (self.monstersKept > [greatestScore integerValue]) {
+                [ud setObject:@(self.monstersKept) forKey:@"HTGreatestScore"];
+            }
+            [ud synchronize];
+            
             SKTransition *reveal = [SKTransition flipHorizontalWithDuration:0.5];
             SKScene * gameOverScene = [[GameOverScene alloc] initWithSize:self.size won:NO];
             [self.view presentScene:gameOverScene transition: reveal];
+            
             [self.timer invalidate];
         }
 
@@ -514,7 +526,7 @@ float degToRad(float degree)
     }
     if (buttonIndex == 1) {// 跳回首頁
         [self.timer invalidate];
-        [self.mainSceneDelegate mainSceneDidFinish:self];
+        [[AppDelegate sharedAppDelegate].mainVC.sceneVC backAction];
     }
 }
 

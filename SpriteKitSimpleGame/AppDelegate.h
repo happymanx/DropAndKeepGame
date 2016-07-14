@@ -7,9 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HTMainViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+
+@property (strong, nonatomic) HTMainViewController *mainVC;
+
++(AppDelegate *)sharedAppDelegate;
 
 @end

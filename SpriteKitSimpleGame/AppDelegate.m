@@ -7,14 +7,18 @@
 //
 
 #import "AppDelegate.h"
-#import "HTMainViewController.h"
 
 @implementation AppDelegate
 
++(AppDelegate *)sharedAppDelegate
+{
+    return (id)[[UIApplication sharedApplication] delegate];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    HTMainViewController *mainVC = [[HTMainViewController alloc] init];
-    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:mainVC];
+    self.mainVC = [[HTMainViewController alloc] init];
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:self.mainVC];
     nc.navigationBarHidden = YES;
     
     self.window.rootViewController = nc;
