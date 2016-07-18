@@ -12,7 +12,7 @@
 @import AVFoundation;
 
 @interface HTSceneViewController ()
-@property (nonatomic) AVAudioPlayer * backgroundMusicPlayer;
+@property (nonatomic) AVAudioPlayer *backgroundMusicPlayer;
 @end
 
 @implementation HTSceneViewController
@@ -81,8 +81,5 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
-
-
-    
 
 @end

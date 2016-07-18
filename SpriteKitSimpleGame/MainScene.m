@@ -396,6 +396,11 @@ float degToRad(float degree)
 
 -(void)updateTime:(NSTimer *)timer
 {
+    // 如果遊戲暫停
+    if (self.scene.isPaused == YES) {
+        return;
+    }
+
     self.second++;
     NSLog(@"second: %li", (long)self.second);
 }
